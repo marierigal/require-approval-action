@@ -1,5 +1,6 @@
 import { ExitCode, getInput } from '@actions/core';
 import { context } from '@actions/github';
+
 import { getLastReviews } from './getLastReviews';
 import { removePreviousRuns } from './removePreviousRuns';
 
@@ -24,12 +25,10 @@ export async function checkApprovals() {
   if (context.eventName === 'pull_request_review') {
     await removePreviousRuns(
       token,
-      {
-        ...octokitParams,
-        workflow_id: context.workflow,
-        event: 'pull_request',
-      },
-      pull_number
+      octokitParams,
+      pull_number,
+      context.workflow,
+      'pull_request'
     );
   }
 
@@ -37,12 +36,10 @@ export async function checkApprovals() {
   if (context.eventName === 'pull_request') {
     await removePreviousRuns(
       token,
-      {
-        ...octokitParams,
-        workflow_id: context.workflow,
-        event: 'pull_request_review',
-      },
-      pull_number
+      octokitParams,
+      pull_number,
+      context.workflow,
+      'pull_request_review'
     );
   }
 

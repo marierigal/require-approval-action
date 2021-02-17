@@ -1,4 +1,5 @@
 import * as github from '@actions/github';
+
 import { MockGithub } from './__mocks__/types';
 import { removePreviousRuns } from './removePreviousRuns';
 
@@ -11,10 +12,7 @@ describe('removePreviousRuns', () => {
   const params = {
     owner: 'owner',
     repo: 'repo',
-    workflow_id: 1,
-    event: 'event',
   };
-  const pull_number = 1;
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -22,16 +20,21 @@ describe('removePreviousRuns', () => {
 
   it('should remove previous runs', async () => {
     mockGithub.__setMockContext(1);
+    mockGithub.__setMockWorkflows([
+      mockGithub.__makeMockWorkflow(1, 'workflow'),
+    ]);
     mockGithub.__setMockRuns([
       mockGithub.__makeMockRun(1, 1),
       mockGithub.__makeMockRun(2, 1),
       mockGithub.__makeMockRun(3, 2),
     ]);
 
-    await removePreviousRuns(token, params, pull_number);
+    await removePreviousRuns(token, params, 1, 'workflow', 'event');
 
     return expect(
-      mockGithub.getOctokit('token').actions.listWorkflowRuns(params)
+      mockGithub
+        .getOctokit('token')
+        .actions.listWorkflowRuns({ ...params, workflow_id: 1 })
     ).resolves.toMatchSnapshot();
   });
 });
