@@ -1,0 +1,19 @@
+name: 'Require Approve'
+description: 'GitHub Action to check if the PR has been approved'
+
+branding:
+  icon: shield
+  color: green
+
+inputs:
+  approvals:
+    description: Number of minimum approvals required
+    required: false
+    default: 1
+  token:
+    description: GitHub token to check the pull request
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

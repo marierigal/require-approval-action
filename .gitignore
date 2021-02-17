@@ -7,6 +7,9 @@ logs
 yarn-debug.log*
 yarn-error.log*
 
+# Coverage
+coverage
+
 # Dependency directories
 node_modules
 
