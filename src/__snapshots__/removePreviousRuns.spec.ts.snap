@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removePreviousRuns should remove previous runs 1`] = `
+Object {
+  "data": Object {
+    "workflow_runs": Array [
+      Object {
+        "id": 3,
+        "pull_requests": Array [
+          Object {
+            "number": 2,
+          },
+        ],
+      },
+    ],
+  },
+}
+`;

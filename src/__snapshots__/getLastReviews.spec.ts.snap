@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getLastReviews should return sorted reviews 1`] = `
+Object {
+  "approved": Array [
+    Object {
+      "state": "APPROVED",
+      "user": Object {
+        "id": 1,
+      },
+    },
+  ],
+  "changesRequested": Array [
+    Object {
+      "state": "CHANGES_REQUESTED",
+      "user": Object {
+        "id": 2,
+      },
+    },
+  ],
+}
+`;

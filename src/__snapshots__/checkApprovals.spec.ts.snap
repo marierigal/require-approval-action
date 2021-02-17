@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checkApprovals should fail when rejectedReviews > 0 1`] = `[Error: This pull request has 1 request changes]`;
+
+exports[`checkApprovals should fail when requiredApprovals = NaN 1`] = `[Error: Approvals input must be a number]`;
+
+exports[`checkApprovals should fail when requiredApprovals > approvedReviews 1`] = `[Error: Missing 2 approvals]`;
+
+exports[`checkApprovals should throw an error when the token is not defined 1`] = `[Error: Github token not found]`;
