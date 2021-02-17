@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/marierigal/require-approval-action/compare/v1.1.0...v1.2.0) (2021-02-17)
+
+
+### Features
+
+* rename action ([7894414](https://github.com/marierigal/require-approval-action/commit/789441489bdecf59669806317fdfb30adec348ef))
+
 # [1.1.0](https://github.com/marierigal/require-approve-action/compare/v1.0.0...v1.1.0) (2021-02-17)
 
 
