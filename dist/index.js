@@ -5769,9 +5769,17 @@ async function getLastReviews(token, params) {
     return lastReviews;
 }
 
-async function removePreviousRuns(token, params, pull_number) {
+async function removePreviousRuns(token, params, pull_number, workflow_name, event_name) {
     const octokit = github.getOctokit(token);
-    const { data: { workflow_runs }, } = await octokit.actions.listWorkflowRuns(params);
+    const { data: { workflows }, } = await octokit.actions.listRepoWorkflows(params);
+    const workflow = workflows.find(workflow => workflow.name === workflow_name);
+    if (!workflow)
+        return;
+    const { data: { workflow_runs }, } = await octokit.actions.listWorkflowRuns({
+        ...params,
+        workflow_id: workflow.id,
+        event: event_name,
+    });
     const runs = workflow_runs.filter(run => { var _a; return ((_a = run.pull_requests[0]) === null || _a === void 0 ? void 0 : _a.number) === pull_number; });
     for (const run of runs) {
         await octokit.actions.deleteWorkflowRun({
@@ -5799,19 +5807,11 @@ async function checkApprovals() {
     };
     // Remove previous runs triggered by the `pull_request` event
     if (github.context.eventName === 'pull_request_review') {
-        await removePreviousRuns(token, {
-            ...octokitParams,
-            workflow_id: github.context.workflow,
-            event: 'pull_request',
-        }, pull_number);
+        await removePreviousRuns(token, octokitParams, pull_number, github.context.workflow, 'pull_request');
     }
     // Remove previous runs triggered by the `pull_request_review` event
     if (github.context.eventName === 'pull_request') {
-        await removePreviousRuns(token, {
-            ...octokitParams,
-            workflow_id: github.context.workflow,
-            event: 'pull_request_review',
-        }, pull_number);
+        await removePreviousRuns(token, octokitParams, pull_number, github.context.workflow, 'pull_request_review');
     }
     // Get approvals from input
     const requiredApprovals = (_a = parseInt(core.getInput('approvals'), 10)) !== null && _a !== void 0 ? _a : 1;
@@ -5837,4 +5837,7 @@ async function checkApprovals() {
 
 checkApprovals()
     .then()
-    .catch(error => core$1.setFailed(error.message));
+    .catch(error => {
+    console.error(error);
+    core$1.setFailed(error.message);
+});

@@ -1,6 +1,7 @@
 import { REVIEW_STATE } from '../constants';
 import {
   DeleteWorkflowRunParams,
+  ListRepoWorkflowWorkflowsParams,
   ListReviewsParams,
   ListWorkflowRunsParams,
 } from '../types';
@@ -14,6 +15,8 @@ export interface MockGithub {
   __setMockContext: (pull_number?: number) => MockContext;
   __makeMockReview: (state: REVIEW_STATE, userId: number) => MockReview;
   __setMockReviews: (reviews: MockReview[]) => void;
+  __makeMockWorkflow: (id: number, name: string) => MockWorkflow;
+  __setMockWorkflows: (workflows: MockWorkflow[]) => void;
   __makeMockRun: (runId: number, pull_number: number) => MockRun;
   __setMockRuns: (runs: MockRun[]) => void;
   context: MockContext;
@@ -25,6 +28,9 @@ export interface MockOctokit {
     listReviews: (params: ListReviewsParams) => Promise<{ data: MockReview[] }>;
   };
   actions: {
+    listRepoWorkflows: (
+      params: ListRepoWorkflowWorkflowsParams
+    ) => Promise<{ data: { workflows: MockWorkflow[] } }>;
     listWorkflowRuns: (
       params: ListWorkflowRunsParams
     ) => Promise<{ data: { workflow_runs: MockRun[] } }>;
@@ -34,7 +40,7 @@ export interface MockOctokit {
 
 export interface MockContext {
   eventName: string;
-  workflow_id: number;
+  workflow: string;
   repo: {
     owner: string;
     repo: string;
@@ -47,6 +53,11 @@ export interface MockContext {
 export interface MockReview {
   user: { id: number };
   state: REVIEW_STATE;
+}
+
+export interface MockWorkflow {
+  id: number;
+  name: string;
 }
 
 export interface MockRun {

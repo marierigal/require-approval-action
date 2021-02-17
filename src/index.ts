@@ -4,4 +4,7 @@ import { checkApprovals } from './checkApprovals';
 
 checkApprovals()
   .then()
-  .catch(error => core.setFailed(error.message));
+  .catch(error => {
+    console.error(error);
+    core.setFailed(error.message);
+  });
