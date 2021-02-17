@@ -2,7 +2,7 @@ name: 'Require Approve'
 description: 'GitHub Action to check if the PR has been approved'
 
 branding:
-  icon: shield
+  icon: check-circle
   color: green
 
 inputs:

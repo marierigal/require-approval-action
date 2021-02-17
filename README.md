@@ -1,4 +1,4 @@
-# Require Approve Action
+# Require Approval Action
 
 ![Release](https://github.com/marierigal/require-approve-action/workflows/Release/badge.svg)
 ![@latest](https://img.shields.io/github/package-json/v/marierigal/require-approve-action?label=%40latest)
@@ -18,21 +18,21 @@ GitHub token to check the pull request.
 ## Example
 
 ```yaml
-name: Require Approvals
+name: Require Approval
 
 on:
   - pull_request
   - pull_request_review
 
 jobs:
-  check_approvals:
+  check:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Check approvals
-        uses: marierigal/require-approve-action@v1
+        uses: marierigal/require-approval-action@v1.2.0
         with:
-          approvals: 2
+          approvals: 1
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 

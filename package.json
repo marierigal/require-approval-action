@@ -1,13 +1,13 @@
 {
-  "name": "require-approve-action",
+  "name": "require-approval-action",
   "version": "1.1.0",
   "description": "GitHub Action to check if the PR has been approved",
   "main": "dist/index.js",
   "source": "src/index.ts",
-  "repository": "https://github.com/marierigal/require-approve-action.git",
-  "homepage": "https://github.com/marierigal/require-approve-action#readme",
+  "repository": "https://github.com/marierigal/require-approval-action.git",
+  "homepage": "https://github.com/marierigal/require-approval-action#readme",
   "bugs": {
-    "url": "https://github.com/marierigal/require-approve-action/issues"
+    "url": "https://github.com/marierigal/require-approval-action/issues"
   },
   "author": "Marie Rigal <marierigal4@gmail.com>",
   "license": "MIT",
